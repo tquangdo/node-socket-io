@@ -25,20 +25,27 @@
     </div>
     <div id="div-an-khi-dang-ky">
         <h3 id="welcome-login" style="text-align: right"></h3>
+        <h3 id="info-msg" style="text-align: right; color: orange"></h3>
+        <hr>
         <div id="div-tao-room">
+            <label>Tạo room:</label>
             <input type="text" id="txt-room" placeholder="Nhập tên room mới...">
             <br><br>
             <button id="btn-tao-room">Tạo room</button>
         </div>
+        <hr>
         <div id="div-chat">
-            <h3 style='color:yellowgreen'>Danh sách các room chat:</h3>
+            <h3 style='color:yellowgreen'>Danh sách các room chat:(click tên room để chuyển room)</h3>
             <ul id="list-room">
                 <%mangRoom.forEach(room_item => {%>
                 <li class="item-room"><%=room_item%></li>
                 <%})%>
             </ul>
             <hr>
+            <h3 id="room-message">Nội dung chat trong room [Mặc định]:</h3>
             <ul id="list-message"></ul>
+            <hr>
+            <label>Chat:</label>
             <input type="text" id="txt-msg" placeholder="Chat vô đây..." />
             <br><br>
             <button id="btn-send">Gửi</button>

@@ -9,7 +9,7 @@ function Room(roomName) {
     this.mangRoomMsg = []
 }
 const mangRoom = [
-    new Room('Học tập'),
+    new Room('Mặc định'),
 ]
 const mangUsername = []
 
@@ -25,8 +25,8 @@ app.get('/', (req, res) => { // KO được lược bỏ kiểu như ReactJS: ..
 
 io.on('connection', socket => {
     console.log('id ket noi la: ' + socket.id)
-    socket.currentRoom = 'Học tập'
-    socket.join('Học tập')
+    socket.currentRoom = 'Mặc định'
+    socket.join('Mặc định')
     socket.emit('S_ALLMSG_CUA_ROOM_4', mangRoom[0].mangRoomMsg)
     socket.on('C_DANGKY_1', username => {
         if (mangUsername.indexOf(username) === -1) {
@@ -44,31 +44,30 @@ io.on('connection', socket => {
             })
         })
         const room = mangRoom.find(room_item => room_item.roomName === roomName)
-        // console.log('mangRoom: ', mangRoom)
         socket.emit('S_ALLMSG_CUA_ROOM_4', room.mangRoomMsg)
     })
     socket.on('C_GUIMSG_5', msg => {
         const message = `${socket.username}: ${msg}`
-        //loại 4) send to group: io.to(socketid).emit()
-        io.to(socket.currentRoom).emit('S_HIENMSG_TOGROUP_6', message)
+        //loại 4) send to room: io.to(socketid).emit()
+        io.to(socket.currentRoom).emit('S_GUIMSG_TOROOM_6', message)
         const room = mangRoom.find(room_item => room_item.roomName === socket.currentRoom)
         room.mangRoomMsg.push(message)
     })
     socket.on('C_TAOROOM_7', function (roomName) {
         if (mangRoom.indexOf(roomName) === -1) {
 
-            socket.join(roomName);
+            socket.join(roomName)
             if (socket.currentRoom != undefined) {
-                socket.leave(socket.currentRoom);
+                socket.leave(socket.currentRoom)
             }
-            socket.currentRoom = roomName;
+            socket.currentRoom = roomName
 
-            socket.emit('S_CHECK_TENROOMMOI_8', roomName);
-            socket.broadcast.emit('S_OK_ROOMMOI_9', roomName); //bắt buộc loại broadcast, xem cmt out file "xuly.js"
-            // mangRoom.unshift(roomName);
-            mangRoom.push(new Room(roomName));
+            socket.emit('S_CHECK_TENROOMMOI_8', roomName)
+            socket.broadcast.emit('S_OK_ROOMMOI_9', roomName) //bắt buộc loại broadcast, xem cmt out file "xuly.js"
+            // mangRoom.unshift(roomName)
+            mangRoom.push(new Room(roomName))
         } else {
-            socket.emit('S_CHECK_TENROOMMOI_8', false);
+            socket.emit('S_CHECK_TENROOMMOI_8', false)
         }
-    });
+    })
 })
