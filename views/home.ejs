@@ -5,61 +5,17 @@
     <meta charset="utf-8">
     <title>Chat room</title>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="jquery-3.1.1.min.js"></script>
-    <script type="text/javascript">
-        var roomName
-        $(document).ready(() => {
-            $('#div-chat').hide()
-            var socket = io()
-            //1)
-            $('#btn-dang-ky').click(() => {
-                var username = $('#txt-username').val()
-                socket.emit('C_DANGKY_1', username)
-            })
-            //2)
-            socket.on('S_DANGKYOK_2', kqTrueFalse => {
-                if (kqTrueFalse) {
-                    alert('Dang ky thanh cong')
-                    $('#div-dang-ky').hide()
-                    $('#div-chat').show()
-                } else {
-                    alert('Username da ton tai')
-                }
-            })
-            //3)
-            $('#list-room li').click(function () { // KO được dùng arrow func kiểu: ...click(()=> {}
-                $('#list-room li').removeClass('active-room')
-                $(this).addClass('active-room')
-                roomName = $(this).html()
-                socket.emit('C_VOROOM_3', roomName)
-            })
-            //4)
-            socket.on('S_ALLMSG_CUA_ROOM_4', mangAllMsg => {
-                $('#list-message li').remove()
-                mangAllMsg.forEach(msg_item =>
-                    $('#list-message').append(`<li>${msg_item}</li>`)
-                )
-            })
-            //5)
-            $('#btn-send').click(() => {
-                var msg = $('#txt-msg').val()
-                socket.emit('C_GUIMSG_5', msg)
-            })
-            //6)
-            socket.on('S_HIENMSG_TOOTHERS_6', msg =>
-                $('#list-message').append(`<li>${msg}</li>`)
-            )
-        })
-    </script>
+    <script src="lib/jquery-3.1.1.min.js"></script>
+    <script src="js/xuly.js"></script>
     <style>
-        .active-room {
+        .active {
             color: red
         }
     </style>
 </head>
 
 <body>
-    <h1>Demo room chat</h1>
+    <h1 style='text-align: center; color: blue'>Demo room chat</h1>
     <div id="div-dang-ky">
         <label>Đăng ký nickname chat:</label>
         <br />
@@ -67,18 +23,26 @@
         <br><br>
         <button id="btn-dang-ky">Đăng ký</button>
     </div>
-    <div id="div-chat">
-        <h3>Danh sách các room chat:</h3>
-        <ul id="list-room">
-            <%mangRoom.forEach(room_item => {%>
-            <li><%=room_item%></li>
-            <%})%>
-        </ul>
-        <hr>
-        <ul id="list-message"></ul>
-        <input type="text" id="txt-msg" placeholder="Chat vô đây..." />
-        <br><br>
-        <button id="btn-send">Gửi</button>
+    <div id="div-an-khi-dang-ky">
+        <h3 id="welcome-login" style="text-align: right"></h3>
+        <div id="div-tao-room">
+            <input type="text" id="txt-room" placeholder="Nhập tên room mới...">
+            <br><br>
+            <button id="btn-tao-room">Tạo room</button>
+        </div>
+        <div id="div-chat">
+            <h3 style='color:yellowgreen'>Danh sách các room chat:</h3>
+            <ul id="list-room">
+                <%mangRoom.forEach(room_item => {%>
+                <li class="item-room"><%=room_item%></li>
+                <%})%>
+            </ul>
+            <hr>
+            <ul id="list-message"></ul>
+            <input type="text" id="txt-msg" placeholder="Chat vô đây..." />
+            <br><br>
+            <button id="btn-send">Gửi</button>
+        </div>
     </div>
 </body>
 
