@@ -36,19 +36,30 @@
         <hr>
         <div id="div-chat">
             <h3 style='color:yellowgreen'>Danh sách các room chat:(click tên room để chuyển room)</h3>
-            <ul id="list-room">
+            <ul id="list-room" style='list-style: decimal;'>
                 <%mangRoom.forEach(room_item => {%>
                 <li class="item-room"><%=room_item%></li>
                 <%})%>
             </ul>
             <hr>
-            <h3 id="room-message">Nội dung chat trong room [Mặc định]:</h3>
-            <ul id="list-message"></ul>
+            <div style='text-align: right'>
+                <h3 style='color:violet;margin-bottom: 0px;'>Users đang online:</h3>
+                <ul id="list-user" style='width:95%;list-style: none;margin-top: 0px;'>
+                    <%mangUser.forEach(user_item => {%>
+                    <li class="item-room"><%=user_item%></li>
+                    <%})%>
+                </ul>
+            </div>
             <hr>
-            <label>Chat:</label>
-            <input type="text" id="txt-msg" placeholder="Chat vô đây..." />
-            <br><br>
-            <button id="btn-send">Gửi</button>
+            <div style='text-align: center'>
+                <h3 id="room-message" style='margin-bottom: 0px;'>Nội dung chat trong room [Mặc định]:</h3>
+                <ul id="list-message" style='list-style: none;margin-top: 0px;'></ul>
+                <hr>
+                <textarea type="text" id="txt-msg" style="margin: 0px; width: 324px; height: 75px;"
+                    placeholder="Chat vô đây..."></textarea>
+                <br><br>
+                <button id="btn-send">Gửi</button>
+            </div>
         </div>
     </div>
 </body>

@@ -13,7 +13,8 @@ $(document).ready(() => {
         if (kqTrueFalse) {
             $('#div-dang-ky').hide()
             $('#div-an-khi-dang-ky').show()
-            $('#welcome-login').append(`Chào bạn: ${username}`)
+            $('#welcome-login').append(`User: ${username}`)
+            // $('#list-user').append(`<li>${username}</li>`)
             $('#list-room li:first').addClass('active')
         } else {
             alert('Nickname đã tồn tại!!!')
@@ -65,5 +66,20 @@ $(document).ready(() => {
     socket.on('S_OK_ROOMMOI_9', function (roomName) {
         $('#list-room').append(`<li class='item-room'>${roomName}</li>`)
         $('#info-msg').html(`<i>User đã vừa tạo room mới tên: ${roomName}</i>`)
+    })
+    //10) giống 9)
+    socket.on('S_OK_USERMOI_10', function (username) {
+        $('#list-user').append(`<li>${username}</li>`)
+        $('#info-msg').html(`<i>User: ${username} đã vừa vô!</i>`)
+    })
+    //11) giống 9)
+    socket.on('S_USEROUT_DOILIST_11', function (mangUser) {
+        $('#list-user').html("")
+        mangUser.map(user_item => {
+            $('#list-user').append(`<li>${user_item}</li>`)
+        })
+    })
+    socket.on('S_USEROUT_INFO_11', function (username) {
+        $('#info-msg').html(`<i>User: ${username} đã vừa out!</i>`)
     })
 })
