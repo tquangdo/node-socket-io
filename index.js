@@ -78,4 +78,10 @@ io.on('connection', socket => {
         //loại 4)
         io.to(socket.currentRoom).emit('S_USEROUT_INFO_11', socket.username)
     })
+    socket.on("C_FOCUSIN_12", function () {
+        socket.in(socket.currentRoom).broadcast.emit("S_FOCUSIN_13", socket.username + " đang gõ phím...")
+    })
+    socket.on("C_FOCUSOUT_14", function () {
+        socket.in(socket.currentRoom).broadcast.emit("S_FOCUSOUT_15")
+    })
 })
