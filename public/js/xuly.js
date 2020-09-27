@@ -1,5 +1,5 @@
 let activeRoom = null
-const socketVar = io('https://shielded-shore-33619.herokuapp.com')
+const socketVar = io()
 let username = ''
 $(document).ready(() => {
     $('#div-an-khi-dang-ky').hide()
