@@ -10,7 +10,7 @@
 3. access "localhost:1234"
 
 ## heroku
-![Heroku](https://heroku-badge.herokuapp.com/?app=zoom-clone-app-dotq)
+![Heroku](https://heroku-badge.herokuapp.com/?app=socket-io-dotq)
 ### deploy
 create file "https://github.com/tquangdo/node-socket-io/blob/master/Procfile"
 ### install
@@ -21,6 +21,6 @@ create file "https://github.com/tquangdo/node-socket-io/blob/master/Procfile"
 ### setting
 https://github.com/tquangdo/node-zoom-clone-app/blob/master/memo.txt
 #### check buildpacks
-- `heroku buildpacks -a zoom-clone-app-dotq`
+- `heroku buildpacks -a socket-io-dotq`
 - -> `heroku/nodejs`
 - ![buildpacks](buildpacks.png)
