@@ -51,7 +51,7 @@ io.on('connection', socket => {
     })
     socket.on('C_GUIMSG_5', msg => {
         const message = `${socket.username}: ${msg}`
-        //loại 4)
+        //loại 4-1)
         io.to(socket.currentRoom).emit('S_GUIMSG_TOROOM_6', message)
         const room = mangRoom.find(room_item => room_item.roomName === socket.currentRoom)
         room.mangRoomMsg.push(message)
@@ -75,13 +75,15 @@ io.on('connection', socket => {
         mangUser.splice(mangUser.indexOf(socket.username), 1)
         //loại 3)
         socket.broadcast.emit('S_USEROUT_DOILIST_11', mangUser)
-        //loại 4)
+        //loại 4-1)
         io.to(socket.currentRoom).emit('S_USEROUT_INFO_11', socket.username)
     })
     socket.on("C_FOCUSIN_12", function () {
+        //loại 4-2)
         socket.in(socket.currentRoom).broadcast.emit("S_FOCUSIN_13", socket.username + " đang gõ phím...")
     })
     socket.on("C_FOCUSOUT_14", function () {
+        //loại 4-2)
         socket.in(socket.currentRoom).broadcast.emit("S_FOCUSOUT_15")
     })
 })
